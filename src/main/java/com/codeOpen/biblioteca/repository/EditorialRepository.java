@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EditorialRepository extends JpaRepository<Editorial, Integer>{
     
-    Optional<Genero> findByNombre(String nombre);
+    Optional<Editorial> findByNombre(String nombre);
     
     boolean existsByNombre(String nombre);
     

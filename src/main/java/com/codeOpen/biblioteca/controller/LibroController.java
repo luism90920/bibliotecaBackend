@@ -3,8 +3,12 @@ package com.codeOpen.biblioteca.controller;
 import com.codeOpen.biblioteca.dto.LibroDto;
 import com.codeOpen.biblioteca.dto.Mensaje;
 import com.codeOpen.biblioteca.entity.Autor;
+import com.codeOpen.biblioteca.entity.Editorial;
+import com.codeOpen.biblioteca.entity.Genero;
 import com.codeOpen.biblioteca.entity.Libro;
 import com.codeOpen.biblioteca.service.AutorService;
+import com.codeOpen.biblioteca.service.EditorialService;
+import com.codeOpen.biblioteca.service.GeneroService;
 import com.codeOpen.biblioteca.service.LibroService;
 import io.micrometer.common.util.StringUtils;
 import java.util.List;
@@ -29,15 +33,22 @@ import org.springframework.web.service.annotation.PutExchange;
 public class LibroController {
 
     @Autowired
-    LibroService libroService;
-    
-    @Autowired
+    LibroService libroService;        
     AutorService autorService;
+    GeneroService generoService;
+    EditorialService editorialService;
+    
 
     @GetMapping("/lista")
     public ResponseEntity<List<Libro>> list() {
         List<Libro> list = libroService.list();
         return new ResponseEntity(list, HttpStatus.OK);
+    }
+    
+    @GetMapping("/listaLibroIdAutor/{id}")
+    public ResponseEntity<List<Libro>> listLibroIdAutor(@PathVariable int id) {
+        List<Libro> lista = libroService.listLibroIdAutor(id);
+        return new ResponseEntity(lista, HttpStatus.OK);
     }
 
     @GetMapping("/detail/{id}")
@@ -60,8 +71,19 @@ public class LibroController {
         if (StringUtils.isBlank(libroDto.getNombreAutor())) {
             return new ResponseEntity(new Mensaje("el autor es obligatorio"), HttpStatus.BAD_REQUEST);
         }
+        if (StringUtils.isBlank(Integer.toString(libroDto.getEjemplares()))) {
+            return new ResponseEntity(new Mensaje("la cantidad de ejemplares es obligatorio"),HttpStatus.BAD_REQUEST);
+        }
+        if(StringUtils.isBlank(libroDto.getNombreGenero())) {
+            return new ResponseEntity(new Mensaje("el género es obligatorio"), HttpStatus.BAD_REQUEST);
+        }
+        if(StringUtils.isBlank(libroDto.getNombreEditorial())) {
+            return new ResponseEntity(new Mensaje("la editorial es obligatoria"), HttpStatus.BAD_REQUEST);
+        }
         Optional<Autor> autor = autorService.getByNombre(libroDto.getNombreAutor());
-        Libro libro = new Libro(libroDto.getTitulo(), autor.get());
+        Optional<Genero> genero = generoService.getByNombre(libroDto.getNombreGenero());
+        Optional<Editorial> editorial = editorialService.getByNombre(libroDto.getNombreEditorial());
+        Libro libro = new Libro(libroDto.getTitulo(), autor.get(), libroDto.getEjemplares(), genero.get(), editorial.get());
         libroService.save(libro);
         return new ResponseEntity(new Mensaje("libro creado"), HttpStatus.OK);
     }
@@ -80,11 +102,24 @@ public class LibroController {
         if (StringUtils.isBlank(libroDto.getTitulo())) {
             return new ResponseEntity(new Mensaje("el título es obligatorio"), HttpStatus.BAD_REQUEST);
         }
-        
+        if (StringUtils.isBlank(Integer.toString(libroDto.getEjemplares()))) {
+            return new ResponseEntity(new Mensaje("la cantidad de ejemplares es obligatorio"),HttpStatus.BAD_REQUEST);
+        }
+        if(StringUtils.isBlank(libroDto.getNombreGenero())) {
+            return new ResponseEntity(new Mensaje("el género es obligatorio"), HttpStatus.BAD_REQUEST);
+        }
+        if(StringUtils.isBlank(libroDto.getNombreEditorial())) {
+            return new ResponseEntity(new Mensaje("la editorial es obligatoria"), HttpStatus.BAD_REQUEST);
+        }
         Optional<Autor> autor = autorService.getByNombre(libroDto.getNombreAutor());
+        Optional<Genero> genero = generoService.getByNombre(libroDto.getNombreGenero());
+        Optional<Editorial> editorial = editorialService.getByNombre(libroDto.getNombreEditorial());
         Libro libro = libroService.getOne(id).get();
         libro.setTitulo(libroDto.getTitulo());
         libro.setAutor(autor.get());
+        libro.setEjemplares(libroDto.getEjemplares());
+        libro.setGenero(genero.get());
+        libro.setEditorial(editorial.get());
         libroService.save(libro);
         return new ResponseEntity(new Mensaje("libro modificado"), HttpStatus.OK);
     }

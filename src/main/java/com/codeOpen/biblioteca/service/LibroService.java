@@ -20,6 +20,10 @@ public class LibroService {
         return libroRepository.findAll();
     }
     
+    public List<Libro> listLibroIdAutor(int id){
+        return libroRepository.buscarPorAutor(id);
+    }
+    
     public Optional<Libro> getOne(int id){
         return libroRepository.findById(id);
     }

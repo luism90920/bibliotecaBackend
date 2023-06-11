@@ -18,6 +18,8 @@ public class Libro {
 
     private String titulo;
     
+    private int ejemplares;
+    
     @ManyToOne
     private Genero genero;
     
@@ -32,16 +34,18 @@ public class Libro {
     public Libro() {
     }
 
-    public Libro(String titulo, Autor autor) {
+    public Libro(String titulo, Autor autor, int ejemplares, Genero genero, Editorial editorial) {
         this.titulo = titulo;
         this.autor = autor;
+        this.ejemplares = ejemplares;
+        this.genero = genero;
+        this.editorial = editorial;
     }
-    
-    
 
-    public Libro(int id, String titulo, Genero genero, Editorial editorial, Autor autor) {
+    public Libro(int id, String titulo, int ejemplares, Genero genero, Editorial editorial, Autor autor) {
         this.id = id;
         this.titulo = titulo;
+        this.ejemplares = ejemplares;
         this.genero = genero;
         this.editorial = editorial;
         this.autor = autor;
@@ -61,6 +65,14 @@ public class Libro {
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
+    }
+
+    public int getEjemplares() {
+        return ejemplares;
+    }
+
+    public void setEjemplares(int ejemplares) {
+        this.ejemplares = ejemplares;
     }
 
     public Genero getGenero() {
@@ -86,6 +98,8 @@ public class Libro {
     public void setAutor(Autor autor) {
         this.autor = autor;
     }
-
+    
+    
+    
     
 }

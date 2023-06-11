@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import java.util.Date;
@@ -25,4 +27,11 @@ public class Usuario {
     
     @Temporal(TemporalType.DATE)
     private Date alta;
+    
+    @ManyToOne
+    private Libro libro;
+
+   
+    
+    
 }
