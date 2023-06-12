@@ -17,6 +17,10 @@ public class Genero {
 
     public Genero() {
     }
+    
+    public Genero(String nombre){
+        this.nombre = nombre;
+    }
 
     public Genero(int id, String nombre) {
         this.id = id;
