@@ -5,25 +5,23 @@ package com.codeOpen.biblioteca.dto;
 public class GeneroDto {
     
     
-    private String nombreGenero;
+    private String nombre;
 
     public GeneroDto() {
     }
 
-    public GeneroDto(String nombreGenero) {
-        this.nombreGenero = nombreGenero;
+    public GeneroDto(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String getNombreGenero() {
-        return nombreGenero;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombreGenero(String nombreGenero) {
-        this.nombreGenero = nombreGenero;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
-    
-    
-    
+
     
     
 }

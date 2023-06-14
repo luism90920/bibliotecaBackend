@@ -48,21 +48,21 @@ public class GeneroController {
     
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody GeneroDto generoDto){
-        if(StringUtils.isBlank(generoDto.getNombreGenero())){
+        if(StringUtils.isBlank(generoDto.getNombre())){
             return new ResponseEntity(new Mensaje("nombre obligatorio"), HttpStatus.BAD_REQUEST);
         }
-        Genero genero = new Genero(generoDto.getNombreGenero());
+        Genero genero = new Genero(generoDto.getNombre());
         generoService.save(genero);
         return new ResponseEntity(new Mensaje("Genero creado"), HttpStatus.OK);
     }
     
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@RequestBody GeneroDto generoDto, @PathVariable int id){
-        if(StringUtils.isBlank(generoDto.getNombreGenero())){
+        if(StringUtils.isBlank(generoDto.getNombre())){
             return new ResponseEntity(new Mensaje("nombre obligatorio"), HttpStatus.BAD_REQUEST);
         }
         Genero genero = generoService.getOne(id).get();
-        genero.setNombre(generoDto.getNombreGenero());
+        genero.setNombre(generoDto.getNombre());
         generoService.save(genero);
         return new ResponseEntity(new Mensaje("Genero modificado"), HttpStatus.OK);
     }

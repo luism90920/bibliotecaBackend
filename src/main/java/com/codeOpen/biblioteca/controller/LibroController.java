@@ -33,9 +33,15 @@ import org.springframework.web.service.annotation.PutExchange;
 public class LibroController {
 
     @Autowired
-    LibroService libroService;        
+    LibroService libroService;    
+
+    @Autowired
     AutorService autorService;
+    
+    @Autowired
     GeneroService generoService;
+    
+    @Autowired
     EditorialService editorialService;
     
 

@@ -4,19 +4,25 @@ package com.codeOpen.biblioteca.dto;
 
 public class EditorialDto {
     
-    private String nombreEditorial;
+    private String nombre;
 
-    public EditorialDto(String nombreEditorial) {
-        this.nombreEditorial = nombreEditorial;
+    public EditorialDto() {
     }
 
-    public String getNombreEditorial() {
-        return nombreEditorial;
+    public EditorialDto(String nombre) {
+        this.nombre = nombre;
     }
 
-    public void setNombreEditorial(String nombreEditorial) {
-        this.nombreEditorial = nombreEditorial;
+    public String getNombre() {
+        return nombre;
     }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    
+
+    
     
     
     

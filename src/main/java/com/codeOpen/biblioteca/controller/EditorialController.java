@@ -49,27 +49,27 @@ public class EditorialController {
     
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody EditorialDto editorialDto){
-        if(editorialService.existByNombre(editorialDto.getNombreEditorial())){
+        if(editorialService.existByNombre(editorialDto.getNombre())){
             return new ResponseEntity(new Mensaje("la editorial ya existe"), HttpStatus.BAD_REQUEST);
         }
-        if(StringUtils.isBlank(editorialDto.getNombreEditorial())){
+        if(StringUtils.isBlank(editorialDto.getNombre())){
             return new ResponseEntity(new Mensaje("el nombre es obligatorio"), HttpStatus.BAD_REQUEST);
         }
-        Editorial editorial = new Editorial(editorialDto.getNombreEditorial());
+        Editorial editorial = new Editorial(editorialDto.getNombre());
         editorialService.save(editorial);
         return new ResponseEntity(new Mensaje("Editorial creada"), HttpStatus.OK);
     }
     
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@RequestBody EditorialDto editorialDto, @PathVariable int id){
-        if(editorialService.existByNombre(editorialDto.getNombreEditorial())){
+        if(editorialService.existByNombre(editorialDto.getNombre())){
             return new ResponseEntity(new Mensaje("la editorial ya existe"), HttpStatus.BAD_REQUEST);
         }
-        if(StringUtils.isBlank(editorialDto.getNombreEditorial())){
+        if(StringUtils.isBlank(editorialDto.getNombre())){
             return new ResponseEntity(new Mensaje("el nombre es obligatorio"), HttpStatus.BAD_REQUEST);
         }
         Editorial editorial = editorialService.getOne(id).get();
-        editorial.setNombre(editorialDto.getNombreEditorial());
+        editorial.setNombre(editorialDto.getNombre());
         editorialService.save(editorial);
         return new ResponseEntity(new Mensaje("editorial modificada"), HttpStatus.OK);
     }
