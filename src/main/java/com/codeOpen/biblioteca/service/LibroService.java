@@ -1,6 +1,7 @@
 
 package com.codeOpen.biblioteca.service;
 
+import com.codeOpen.biblioteca.entity.Genero;
 import com.codeOpen.biblioteca.entity.Libro;
 import com.codeOpen.biblioteca.repository.LibroRepository;
 import jakarta.transaction.Transactional;
@@ -22,6 +23,14 @@ public class LibroService {
     
     public List<Libro> listLibroIdAutor(int id){
         return libroRepository.buscarPorAutor(id);
+    }
+    
+    public List<Libro> listaLibroIdGenero(int id){
+        return libroRepository.buscarPorGenero(id);
+    }
+    
+    public List<Libro> listaLibroIdEditorial(int id){
+        return libroRepository.buscarPorEditorial(id);
     }
     
     public Optional<Libro> getOne(int id){

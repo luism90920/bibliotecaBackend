@@ -56,6 +56,18 @@ public class LibroController {
         List<Libro> lista = libroService.listLibroIdAutor(id);
         return new ResponseEntity(lista, HttpStatus.OK);
     }
+    
+    @GetMapping("/listaLibroIdGenero/{id}")
+    public ResponseEntity<List<Libro>> listaLibroIdGenero(@PathVariable int id){
+        List<Libro> lista = libroService.listaLibroIdGenero(id);
+        return new ResponseEntity(lista, HttpStatus.OK);
+    }
+    
+    @GetMapping("/listaLibroIdEditorial/{id}")
+    public ResponseEntity<List<Libro>> listaLibroIdEditorial(@PathVariable int id){
+        List<Libro> lista = libroService.listaLibroIdEditorial(id);
+        return new ResponseEntity(lista, HttpStatus.OK);
+    }
 
     @GetMapping("/detail/{id}")
     public ResponseEntity<Libro> getById(@PathVariable int id) {
