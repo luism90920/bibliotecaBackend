@@ -12,6 +12,7 @@ import org.aspectj.weaver.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,6 +48,7 @@ public class AutorController {
         return new ResponseEntity(autor, HttpStatus.OK);
     }
     
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody AutorDto autorDto){
         if(StringUtils.isBlank(autorDto.getNombre())){
@@ -60,6 +62,7 @@ public class AutorController {
         return new ResponseEntity(new Mensaje("autor creado"), HttpStatus.OK);
     }
     
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@RequestBody AutorDto autorDto, @PathVariable int id){
         if(!autorService.existsById(id)){
@@ -77,6 +80,7 @@ public class AutorController {
         return new ResponseEntity(new Mensaje("autor modificado"), HttpStatus.OK);
     }
     
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable int id){
         if(!autorService.existsById(id)){

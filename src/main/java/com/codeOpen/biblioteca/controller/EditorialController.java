@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -46,7 +47,7 @@ public class EditorialController {
         return new ResponseEntity(editorial, HttpStatus.OK);
     }
     
-    
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody EditorialDto editorialDto){
         if(editorialService.existByNombre(editorialDto.getNombre())){
@@ -60,6 +61,7 @@ public class EditorialController {
         return new ResponseEntity(new Mensaje("Editorial creada"), HttpStatus.OK);
     }
     
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@RequestBody EditorialDto editorialDto, @PathVariable int id){
         if(editorialService.existByNombre(editorialDto.getNombre())){
@@ -74,6 +76,7 @@ public class EditorialController {
         return new ResponseEntity(new Mensaje("editorial modificada"), HttpStatus.OK);
     }
     
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("delete/{id}")
     public ResponseEntity<?> delete(@PathVariable int id){
         if(!editorialService.existById(id)){
